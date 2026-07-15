@@ -1,28 +1,57 @@
-function NewsList({ news }) {
+import "./NewsList.css";
 
-    return (
+function NewsList({news}){
 
-        <div>
+return(
 
-            <h2>Latest News</h2>
+<div className="news-card">
 
-            {
-                news.map((item, index) => (
+<h2>
 
-                    <div key={index}>
+Latest News
 
-                        <h3>{item.title}</h3>
+</h2>
 
-                        <p>{item.by}</p>
+{
 
-                    </div>
+news.map((item,index)=>(
 
-                ))
-            }
+<div
+key={index}
+className="news-item"
+>
 
-        </div>
+<h3>
 
-    );
+{item.title}
+
+</h3>
+
+<p>
+
+By {item.by}
+
+</p>
+
+<a
+href={item.url}
+target="_blank"
+rel="noreferrer"
+>
+
+Read More
+
+</a>
+
+</div>
+
+))
+
+}
+
+</div>
+
+)
 
 }
 

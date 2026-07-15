@@ -6,6 +6,7 @@ import { GET_DASHBOARD } from "./graphql/queries";
 import SearchBar from "./components/SearchBar";
 import WeatherCard from "./components/WeatherCard";
 import NewsList from "./components/NewsList";
+import "./App.css";
 
 function App() {
     const handleCityChange = (event) => {
@@ -40,33 +41,45 @@ function App() {
 
     }
 
-    return (
+return (
 
-        <div>
+<div className="app">
 
-            <h1>Dashboard</h1>
+<h1 className="title">
 
-            <SearchBar
-            city={city}
-            onCityChange={handleCityChange}
-            onSearch={handleSearch}
-            />
+Weather Dashboard
 
-            {loading && <h2>Loading...</h2>}
+</h1>
 
-            {error && <h2>{error.message}</h2>}
+<SearchBar
+  city={city}
+  onCityChange={handleCityChange}
+  onSearch={handleSearch}
+/>
+{loading && <h2>Loading...</h2>}
 
-            {data && (
-                <>
-                    <WeatherCard weather={data.weather} />
+{error && <h2>{error.message}</h2>}
 
-                    <NewsList news={data.latestNews} />
-                </>
-            )}
+{
+data &&
 
-        </div>
+<div className="dashboard">
 
-    );
+<WeatherCard
+weather={data.weather}
+/>
+
+<NewsList
+news={data.latestNews}
+/>
+
+</div>
+
+}
+
+</div>
+
+);
 
 }
 
