@@ -1,65 +1,73 @@
 import { useState } from "react";
 import { useLazyQuery } from "@apollo/client";
+
 import { GET_DASHBOARD } from "./graphql/queries";
 
+import SearchBar from "./components/SearchBar";
+import WeatherCard from "./components/WeatherCard";
+import NewsList from "./components/NewsList";
+
 function App() {
-  const [city, setCity] = useState("");
+    const handleCityChange = (event) => {
+      setCity(event.target.value);
+    };
+    const [city, setCity] = useState("");
 
-  const [getDashboard, { loading, error, data }] =
-    useLazyQuery(GET_DASHBOARD);
+    const [
+        getDashboard,
+        {
+            loading,
+            error,
+            data,
+        }
+    ] = useLazyQuery(GET_DASHBOARD);
 
-  const handleSearch = () => {
-    if (!city.trim()) return;
+    function handleSearch() {
 
-    getDashboard({
-      variables: {
-        city,
-        limit: 5,
-      },
-    });
-  };
+        if (!city.trim()) return;
 
-  return (
-    <div style={{ padding: 20 }}>
-      <h1>Dashboard</h1>
+        getDashboard({
 
-      <input
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-        placeholder="Enter city"
-      />
+            variables: {
 
-      <button onClick={handleSearch}>
-        Search
-      </button>
+                city,
 
-      {loading && <h2>Loading...</h2>}
+                limit: 5,
 
-      {error && <h2>{error.message}</h2>}
+            },
 
-      {data && (
-        <>
-          <h2>Weather</h2>
+        });
 
-          <p>{data.weather.city}</p>
+    }
 
-          <p>{data.weather.temperature}°C</p>
+    return (
 
-          <hr />
+        <div>
 
-          <h2>Latest News</h2>
+            <h1>Dashboard</h1>
 
-          {data.latestNews.map((news, index) => (
-            <div key={index}>
-              <h3>{news.title}</h3>
+            <SearchBar
+            city={city}
+            onCityChange={handleCityChange}
+            onSearch={handleSearch}
+            />
 
-              <p>{news.by}</p>
-            </div>
-          ))}
-        </>
-      )}
-    </div>
-  );
+            {loading && <h2>Loading...</h2>}
+
+            {error && <h2>{error.message}</h2>}
+
+            {data && (
+                <>
+                    <WeatherCard weather={data.weather} />
+
+                    <NewsList news={data.latestNews} />
+                </>
+            )}
+
+        </div>
+
+    );
+
 }
 
 export default App;
