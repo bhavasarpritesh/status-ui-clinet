@@ -1,32 +1,40 @@
-import "./SearchBar.css";
-
 function SearchBar({
-city,
-onCityChange,
-onSearch
-}){
+  city,
+  onCityChange,
+  onSearch,
+  loading,
+}) {
 
-return(
+    function handleKeyDown(event) {
 
-<div className="search-container">
+        if (event.key === "Enter") {
+            onSearch();
+        }
 
-<input
-value={city}
-onChange={onCityChange}
-placeholder="Enter city"
-/>
+    }
 
-<button
-onClick={onSearch}
->
+    return (
 
-Search
+        <div className="search-container">
 
-</button>
+            <input
+                value={city}
+                onChange={onCityChange}
+                onKeyDown={handleKeyDown}
+                placeholder="Enter city"
+            />
 
-</div>
+            <button
+            onClick={onSearch}
+            disabled={loading}
+            >
+            {loading ? "Searching..." : "Search"}
+            </button>
 
-)
+        </div>
+
+    );
 
 }
+
 export default SearchBar;

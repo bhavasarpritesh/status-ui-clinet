@@ -10,7 +10,7 @@ import "./App.css";
 
 function App() {
     const handleCityChange = (event) => {
-      setCity(event.target.value);
+        setCity(event.target.value);
     };
     const [city, setCity] = useState("");
 
@@ -23,15 +23,19 @@ function App() {
         }
     ] = useLazyQuery(GET_DASHBOARD);
 
-    function handleSearch() {
+    const handleSearch = () => {
 
-        if (!city.trim()) return;
+        const searchCity = city.trim();
+
+        if (!searchCity) {
+            return;
+        }
 
         getDashboard({
 
             variables: {
 
-                city,
+                city: searchCity,
 
                 limit: 5,
 
@@ -39,47 +43,44 @@ function App() {
 
         });
 
-    }
+    };
 
-return (
+    return (
 
-<div className="app">
+        <div className="app">
 
-<h1 className="title">
+            <h1 className="title">
 
-Weather Dashboard
+                Weather Dashboard
 
-</h1>
+            </h1>
 
-<SearchBar
-  city={city}
-  onCityChange={handleCityChange}
-  onSearch={handleSearch}
-/>
-{loading && <h2>Loading...</h2>}
+            <SearchBar
+                city={city}
+                onCityChange={handleCityChange}
+                onSearch={handleSearch}
+                loading={loading}
+            />
+            {loading && <p>Searching...</p>}
 
-{error && <h2>{error.message}</h2>}
+            {error && <h2>{error.message}</h2>}
 
-{
-data &&
+            {!loading && !data && (
+                <div className="empty-state">
+                    <h2>🌍 Search for a city</h2>
+                    <p>Enter a city name to view weather and latest news.</p>
+                </div>
+            )}
 
-<div className="dashboard">
+            {data && (
+                <div className="dashboard">
+                    <WeatherCard weather={data.weather} />
+                    <NewsList news={data.latestNews} />
+                </div>
+            )}
+        </div>
 
-<WeatherCard
-weather={data.weather}
-/>
-
-<NewsList
-news={data.latestNews}
-/>
-
-</div>
-
-}
-
-</div>
-
-);
+    );
 
 }
 

@@ -1,44 +1,42 @@
 import "./WeatherCard.css";
 
-function WeatherCard({weather}){
+function WeatherCard({ weather }) {
 
-return(
+    return (
 
-<div className="card">
+        <div className="card">
 
-<h2>
+            <h2>
 
-🌤 Weather
+                🌤 Weather
 
-</h2>
+            </h2>
 
-<p>
+            <p>
 
-📍 {weather.city}
+                📍 {weather.city}
 
-</p>
+            </p>
 
-<p>
+            <p>
 
-🌡 {weather.temperature} °C
+                🌡 {weather.temperature} °C
 
-</p>
+            </p>
 
-<p>
 
-🌬 {weather.windSpeed}
+            <p>🌬 {weather.windSpeed} km/h</p>
 
-</p>
 
-<p>
+            <p>
 
-Weather Code : {weather.weatherCode}
+                Weather Code : {weather.weatherCode}
 
-</p>
+            </p>
 
-</div>
+        </div>
 
-)
+    )
 
 }
 
