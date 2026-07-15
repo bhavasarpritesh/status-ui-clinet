@@ -2,41 +2,19 @@ import "./WeatherCard.css";
 
 function WeatherCard({ weather }) {
 
-    return (
+return (
+  <div className="card">
+    <h2>🌤 Weather</h2>
 
-        <div className="card">
+    <p>📍 {weather.city}</p>
 
-            <h2>
+    <p>🌡 {weather.temperature}°C</p>
 
-                🌤 Weather
+    <p>🌬 {weather.windSpeed} km/h</p>
 
-            </h2>
-
-            <p>
-
-                📍 {weather.city}
-
-            </p>
-
-            <p>
-
-                🌡 {weather.temperature} °C
-
-            </p>
-
-
-            <p>🌬 {weather.windSpeed} km/h</p>
-
-
-            <p>
-
-                Weather Code : {weather.weatherCode}
-
-            </p>
-
-        </div>
-
-    )
+    <p>🆔 Weather Code: {weather.weatherCode}</p>
+  </div>
+);
 
 }
 

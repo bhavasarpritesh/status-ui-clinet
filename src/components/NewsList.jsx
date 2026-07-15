@@ -14,36 +14,26 @@ function NewsList({ news }) {
 
             {
 
-                news.map((item, index) => (
+            news.map((item, index) => (
+            <div
+                key={index}
+                className="news-item"
+            >
+                <h3>{item.title}</h3>
 
-                    <div
-                        key={index}
-                        className="news-item"
-                    >
+                <p>Author: {item.by}</p>
 
-                        <h3>
-
-                            {item.title}
-
-                        </h3>
-
-                        <p>
-
-                            By {item.by}
-
-                        </p>
-
-                        <a
-                            href={item.url}
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            Read Full Article →
-                        </a>
-
-                    </div>
-
-                ))
+                {item.url && (
+                <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    Read Full Article →
+                </a>
+                )}
+            </div>
+            ))
 
             }
 
